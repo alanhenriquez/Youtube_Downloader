@@ -4,9 +4,10 @@ Este es un simple script en Python para descargar videos y listas de reproducci�
 
 ## Requisitos
 
+- (REQUERIDO) Python 3.11.0 en adelante
+
 - (NO TE PREOCUPES POR ESTA PARTE MIENTRAS QUE DESCARGUES TODOS LOS ARCHIVOS DEL REPOSITORIO)
 
-- Python 3.x
 - Pytube: La librería Pytube debe estar instalada. Puede instalarla utilizando pip:
 
     ```
@@ -21,21 +22,27 @@ Este es un simple script en Python para descargar videos y listas de reproducci�
 
 ## Uso
 
-1. Clona este repositorio o descarga el archivo `downloader.py`.
-2. Abre una terminal y navega hasta el directorio donde se encuentra el archivo `downloader.py`.
-3. Ejecuta el script utilizando Python:
+1. Clona este repositorio.
+2. Abre una terminal CMD y navega hasta donde se encuentra el archivo `downloader.py`.
+3. Escribe en tu terminal CMD lo siguiente:
+
+    ```
+    .\Scripts\activate
+    ```
+
+4. Ejecuta el script utilizando Python:
 
     ```
     python downloader.py
     ```
 
-4. Selecciona una de las opciones:
+5. Selecciona una de las opciones:
 
     - **1: Descargar video**: Para descargar un video de YouTube.
     - **2: Descargar lista de reproducción**: Para descargar una lista de reproducción completa.
     - **q: Salir**: Para salir del programa.
 
-5. Sigue las instrucciones en la terminal para ingresar la URL del video o de la lista de reproducción, el formato de descarga y la ruta de descarga.
+6. Sigue las instrucciones en la terminal para ingresar la URL del video o de la lista de reproducción, el formato de descarga y la ruta de descarga.
 
 ## Ejemplos
 
