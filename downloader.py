@@ -22,6 +22,7 @@ def verificar_privacidad(url):
         print(Fore.RED + f"Ocurrió un error: {e}" + Style.RESET_ALL)
         return False
 
+
 def descargar_video(url, ruta_descarga, formato):
     try:
         # Instancia un objeto YouTube con la URL del video
@@ -56,45 +57,56 @@ def descargar_video(url, ruta_descarga, formato):
     except Exception as e:
         print(Fore.RED + f"Ocurrió un error: {e}" + Style.RESET_ALL)
 
+
 def descargar_lista_reproduccion(url, ruta_descarga, formato):
     try:
         # Instancia un objeto Playlist con la URL de la lista de reproducción
         playlist = Playlist(url)
 
         # Descarga cada video de la lista de reproducción
-        for video in playlist.videos:
+        for i, video in enumerate(playlist.videos, start=1):
             # Eliminar caracteres especiales del título del video
             titulo_limpio = re.sub(r'[<>:"/\\|?*]', '', video.title)
-            
+
+            # Agregar el índice al inicio del título
+            titulo_con_indice = f"{i:03d} - {titulo_limpio}"
+
             if formato == "mp4":
                 # Descarga el video en formato MP4
                 stream = video.streams.get_highest_resolution()
-                print(Fore.GREEN + f"Descargando '{titulo_limpio}' en formato MP4..." + Style.RESET_ALL)
-                stream.download(ruta_descarga, filename=f"{titulo_limpio}.mp4")
+                print(Fore.GREEN + f"Descargando '{titulo_con_indice}' en formato MP4..." + Style.RESET_ALL)
+                filename = f"{titulo_con_indice}.mp4"  # Añadir el índice al nombre del archivo
+                stream.download(ruta_descarga, filename=filename)
                 print(Fore.GREEN + "Descarga completada." + Style.RESET_ALL)
             elif formato == "mp3":
                 # Descarga solo el audio en formato MP3
                 audio_stream = video.streams.filter(only_audio=True).first()
-                print(Fore.GREEN + f"Descargando el audio de '{titulo_limpio}' en formato MP3..." + Style.RESET_ALL)
-                audio_stream.download(output_path=ruta_descarga, filename=f"{titulo_limpio}.mp3")
+                print(Fore.GREEN + f"Descargando el audio de '{titulo_con_indice}' en formato MP3..." + Style.RESET_ALL)
+                filename = f"{titulo_con_indice}.mp3"  # Añadir el índice al nombre del archivo
+                audio_stream.download(output_path=ruta_descarga, filename=filename)
                 print(Fore.GREEN + "Descarga completada." + Style.RESET_ALL)
             elif formato == "ambos":
                 # Descarga tanto el video en formato MP4 como el audio en formato MP3
                 stream = video.streams.get_highest_resolution()
-                print(Fore.GREEN + f"Descargando '{titulo_limpio}' en formato MP4..." + Style.RESET_ALL)
-                stream.download(ruta_descarga, filename=f"{titulo_limpio}.mp4")
+                print(Fore.GREEN + f"Descargando '{titulo_con_indice}' en formato MP4..." + Style.RESET_ALL)
+                video_filename = f"{titulo_con_indice}.mp4"  # Añadir el índice al nombre del archivo de video
+                stream.download(ruta_descarga, filename=video_filename)
                 print(Fore.GREEN + "Descarga de video completada." + Style.RESET_ALL)
+                
                 audio_stream = video.streams.filter(only_audio=True).first()
-                print(Fore.GREEN + f"Descargando el audio de '{titulo_limpio}' en formato MP3..." + Style.RESET_ALL)
-                audio_stream.download(output_path=ruta_descarga, filename=f"{titulo_limpio}.mp3")
+                print(Fore.GREEN + f"Descargando el audio de '{titulo_con_indice}' en formato MP3..." + Style.RESET_ALL)
+                audio_filename = f"{titulo_con_indice}.mp3"  # Añadir el índice al nombre del archivo de audio
+                audio_stream.download(output_path=ruta_descarga, filename=audio_filename)
                 print(Fore.GREEN + "Descarga de audio completada." + Style.RESET_ALL)
 
     except Exception as e:
         print(Fore.RED + f"Ocurrió un error: {e}" + Style.RESET_ALL)
 
+
 def salir():
     print(Fore.YELLOW + "Saliendo del programa..." + Style.RESET_ALL)
     exit()
+
 
 if __name__ == "__main__":
     print(Fore.CYAN + "Bienvenido al descargador de videos de YouTube!" + Style.RESET_ALL)
