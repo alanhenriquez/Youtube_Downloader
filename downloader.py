@@ -121,6 +121,48 @@ def descargar_lista_reproduccion(url, ruta_descarga, formato):
         print(Fore.RED + f"Ocurrió un error: {e}" + Style.RESET_ALL)
 
 
+def menu():
+    while True:
+        opcion = input(Fore.MAGENTA + "¿Qué deseas hacer? (1: Descargar video / 2: Descargar lista de reproducción / q: Salir): " + Style.RESET_ALL)
+
+        if opcion == "1":
+            # Descarga de un solo video
+            url = input("Ingresa la URL del video de YouTube: ")
+            if url.lower() == "q":
+                salir()
+            if verificar_privacidad(url):
+                formato = input("Seleccione el formato de descarga (mp4 / mp3 / ambos): ").lower()
+                while formato not in ["mp4", "mp3", "ambos", "q"]:
+                    print("Formato no válido. Por favor, seleccione 'mp4', 'mp3', 'ambos' o 'q' para salir.")
+                    formato = input("Seleccione el formato de descarga (mp4 / mp3 / ambos): ").lower()
+                if formato == "q":
+                    salir()
+                ruta_descarga = input("Ingresa la ruta donde deseas guardar el video o audio (puede ser una carpeta): ")
+                if ruta_descarga.lower() == "q":
+                    salir()
+                descargar_video(url, ruta_descarga, formato)
+        elif opcion == "2":
+            # Descarga de una lista de reproducción
+            url_lista = input("Ingresa el enlace de la lista de reproducción de YouTube: ")
+            if url_lista.lower() == "q":
+                salir()
+            if verificar_privacidad(url_lista):
+                formato = input("Seleccione el formato de descarga (mp4 / mp3 / ambos): ").lower()
+                while formato not in ["mp4", "mp3", "ambos", "q"]:
+                    print("Formato no válido. Por favor, seleccione 'mp4', 'mp3', 'ambos' o 'q' para salir.")
+                    formato = input("Seleccione el formato de descarga (mp4 / mp3 / ambos): ").lower()
+                if formato == "q":
+                    salir()
+                ruta_descarga = input("Ingresa la ruta donde deseas guardar los videos o audios (puede ser una carpeta): ")
+                if ruta_descarga.lower() == "q":
+                    salir()
+                descargar_lista_reproduccion(url_lista, ruta_descarga, formato)
+        elif opcion.lower() == "q":
+            salir()
+        else:
+            print("Opción no válida. Por favor, selecciona '1', '2' o 'q'.")
+
+
 def salir():
     print(Fore.YELLOW + "Saliendo del programa..." + Style.RESET_ALL)
     exit()
@@ -128,30 +170,4 @@ def salir():
 
 if __name__ == "__main__":
     print(Fore.CYAN + "Bienvenido al descargador de videos de YouTube!" + Style.RESET_ALL)
-    while True:
-        opcion = input(Fore.MAGENTA + "¿Qué deseas hacer? (1: Descargar video / 2: Descargar lista de reproducción / q: Salir): " + Style.RESET_ALL)
-
-        if opcion == "1":
-            # Descarga de un solo video
-            url = input("Ingresa la URL del video de YouTube: ")
-            if verificar_privacidad(url):
-                formato = input("Seleccione el formato de descarga (mp4 / mp3 / ambos): ").lower()
-                while formato not in ["mp4", "mp3", "ambos"]:
-                    print("Formato no válido. Por favor, seleccione 'mp4', 'mp3' o 'ambos'.")
-                    formato = input("Seleccione el formato de descarga (mp4 / mp3 / ambos): ").lower()
-                ruta_descarga = input("Ingresa la ruta donde deseas guardar el video o audio (puede ser una carpeta): ")
-                descargar_video(url, ruta_descarga, formato)
-        elif opcion == "2":
-            # Descarga de una lista de reproducción
-            url_lista = input("Ingresa el enlace de la lista de reproducción de YouTube: ")
-            if verificar_privacidad(url_lista):
-                formato = input("Seleccione el formato de descarga (mp4 / mp3 / ambos): ").lower()
-                while formato not in ["mp4", "mp3", "ambos"]:
-                    print("Formato no válido. Por favor, seleccione 'mp4', 'mp3' o 'ambos'.")
-                    formato = input("Seleccione el formato de descarga (mp4 / mp3 / ambos): ").lower()
-                ruta_descarga = input("Ingresa la ruta donde deseas guardar los videos o audios (puede ser una carpeta): ")
-                descargar_lista_reproduccion(url_lista, ruta_descarga, formato)
-        elif opcion.lower() == "q":
-            salir()
-        else:
-            print("Opción no válida. Por favor, selecciona '1', '2' o 'q'.")
+    menu()
