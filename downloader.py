@@ -1,6 +1,7 @@
 from pytube import YouTube, Playlist
 from colorama import Fore, Style, init
 import re
+import os
 
 # Inicializar Colorama para Windows
 init(convert=True)
@@ -63,6 +64,9 @@ def descargar_lista_reproduccion(url, ruta_descarga, formato):
         # Instancia un objeto Playlist con la URL de la lista de reproducción
         playlist = Playlist(url)
 
+        # Lista para almacenar los títulos y formatos de los archivos existentes en la carpeta de destino
+        archivos_existentes = [file.lower() for file in os.listdir(ruta_descarga)]
+
         # Descarga cada video de la lista de reproducción
         for i, video in enumerate(playlist.videos, start=1):
             # Eliminar caracteres especiales del título del video
@@ -70,6 +74,13 @@ def descargar_lista_reproduccion(url, ruta_descarga, formato):
 
             # Agregar el índice al inicio del título
             titulo_con_indice = f"{i:03d} - {titulo_limpio}"
+
+            # Verificar si el archivo ya existe en la carpeta de destino
+            archivo_existente = any(titulo_con_indice.lower() in archivo for archivo in archivos_existentes)
+
+            if archivo_existente:
+                print(Fore.YELLOW + f"El archivo '{titulo_con_indice}.{formato}' ya existe en la carpeta de destino. Saltando descarga." + Style.RESET_ALL)
+                continue
 
             if formato == "mp4":
                 # Descarga el video en formato MP4
@@ -101,7 +112,6 @@ def descargar_lista_reproduccion(url, ruta_descarga, formato):
 
     except Exception as e:
         print(Fore.RED + f"Ocurrió un error: {e}" + Style.RESET_ALL)
-
 
 def salir():
     print(Fore.YELLOW + "Saliendo del programa..." + Style.RESET_ALL)
