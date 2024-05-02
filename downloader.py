@@ -32,6 +32,13 @@ def descargar_video(url, ruta_descarga, formato):
         # Eliminar caracteres especiales del título del video
         titulo_limpio = re.sub(r'[<>:"/\\|?*]', '', video.title)
 
+        # Verificar si el archivo ya existe en la carpeta de destino
+        archivo_existente = f"{titulo_limpio}.{formato}" in os.listdir(ruta_descarga)
+
+        if archivo_existente:
+            print(Fore.YELLOW + f"El archivo '{titulo_limpio}.{formato}' ya existe en la carpeta de destino. Saltando descarga." + Style.RESET_ALL)
+            return
+
         if formato == "mp4":
             # Descarga el video en formato MP4
             stream = video.streams.get_highest_resolution()
@@ -112,6 +119,7 @@ def descargar_lista_reproduccion(url, ruta_descarga, formato):
 
     except Exception as e:
         print(Fore.RED + f"Ocurrió un error: {e}" + Style.RESET_ALL)
+
 
 def salir():
     print(Fore.YELLOW + "Saliendo del programa..." + Style.RESET_ALL)
