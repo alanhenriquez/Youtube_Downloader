@@ -6,49 +6,71 @@ Este es un simple script en Python para descargar videos y listas de reproducci�
 
 - (REQUERIDO) Python 3.11.0 en adelante
 
+- (REQUERIDO) Habilitar la ejecución de scripts en PowerShell:
+
+    Para activar el entorno virtual en PowerShell, es necesario cambiar la política de ejecución de scripts. Sigue estos pasos:
+
+    1. Abre PowerShell como administrador:
+        - Haz clic derecho en el menú de inicio y selecciona "Windows PowerShell (Administrador)".
+
+    2. Cambia la política de ejecución ejecutando el siguiente comando:
+        ```sh
+        Set-ExecutionPolicy RemoteSigned
+        ```
+
+    3. Confirma el cambio escribiendo `Y` y presionando Enter.
+
+    Después de activar el entorno virtual, puedes restaurar la política de ejecución a su configuración original:
+    ```sh
+    Set-ExecutionPolicy Restricted
+    ```
+
+- (REQUERIDO) Crear y activar un entorno virtual:
+
+    1. Clona este repositorio.
+    2. Abre una terminal CMD o PowerShell y navega hasta el directorio del proyecto.
+    3. Ejecuta el script `setup_venv.py` para crear y configurar el entorno virtual:
+
+        ```sh
+        python setup_venv.py
+        ```
+
 - (NO TE PREOCUPES POR ESTA PARTE MIENTRAS QUE DESCARGUES TODOS LOS ARCHIVOS DEL REPOSITORIO)
 
-- Pytube: La librería Pytube debe estar instalada. Puede instalarla utilizando pip:
+- Pytube: La librería Pytube debe estar instalada en el entorno virtual. El script `setup_venv.py` se encargará de esto.
 
-    ```
-    pip install pytube
-    ```
-
-- Colorama: La librería Colorama también debe estar instalada para mostrar mensajes en colores. Puede instalarla utilizando pip:
-
-    ```
-    pip install colorama
-    ```
+- Colorama: La librería Colorama también debe estar instalada en el entorno virtual. El script `setup_venv.py` se encargará de esto.
 
 ## Uso
 
 1. Clona este repositorio.
-2. Abre una terminal CMD y navega hasta donde se encuentra el archivo `downloader.py`.
-3. Escribe en tu terminal CMD lo siguiente:
+2. Ejecuta el script `setup_venv.py` como se describe en los requisitos. (Si ya lo hiciste en los requerimientos, puedes saltarte este paso).
+3. Abre una terminal CMD o PowerShell y navega hasta donde se encuentra el archivo `downloader.py` dentro del entorno virtual (`venv_downloader`).
+4. Activa el entorno virtual:
 
-    ```
+    ```sh
     .\Scripts\activate
     ```
 
-4. Ejecuta el script utilizando Python:
+5. Ejecuta el script utilizando Python:
 
-    ```
+    ```sh
     python downloader.py
     ```
 
-5. Selecciona una de las opciones:
+6. Selecciona una de las opciones:
 
     - **1: Descargar video**: Para descargar un video de YouTube.
     - **2: Descargar lista de reproducción**: Para descargar una lista de reproducción completa.
     - **q: Salir**: Para salir del programa.
 
-6. Sigue las instrucciones en la terminal para ingresar la URL del video o de la lista de reproducción, el formato de descarga y la ruta de descarga.
+7. Sigue las instrucciones en la terminal para ingresar la URL del video o de la lista de reproducción, el formato de descarga y la ruta de descarga.
 
 ## Ejemplos
 
 - Descargar un video:
 
-    ```
+    ```sh
     ¿Qué deseas hacer? (1: Descargar video / 2: Descargar lista de reproducción / q: Salir): 1
     Ingresa la URL del video de YouTube: https://www.youtube.com/watch?v=VIDEO_ID
     Seleccione el formato de descarga (mp4 / mp3 / ambos): mp4
@@ -57,7 +79,7 @@ Este es un simple script en Python para descargar videos y listas de reproducci�
 
 - Descargar una lista de reproducción:
 
-    ```
+    ```sh
     ¿Qué deseas hacer? (1: Descargar video / 2: Descargar lista de reproducción / q: Salir): 2
     Ingresa el enlace de la lista de reproducción de YouTube: https://www.youtube.com/playlist?list=PLAYLIST_ID
     Seleccione el formato de descarga (mp4 / mp3 / ambos): mp3

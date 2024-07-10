@@ -89,36 +89,39 @@ def descargar_lista_reproduccion(url, ruta_descarga, formato):
                 print(Fore.YELLOW + f"El archivo '{titulo_con_indice}.{formato}' ya existe en la carpeta de destino. Saltando descarga." + Style.RESET_ALL)
                 continue
 
-            if formato == "mp4":
-                # Descarga el video en formato MP4
-                stream = video.streams.get_highest_resolution()
-                print(Fore.GREEN + f"Descargando '{titulo_con_indice}' en formato MP4..." + Style.RESET_ALL)
-                filename = f"{titulo_con_indice}.mp4"  # Añadir el índice al nombre del archivo
-                stream.download(ruta_descarga, filename=filename)
-                print(Fore.GREEN + "Descarga completada." + Style.RESET_ALL)
-            elif formato == "mp3":
-                # Descarga solo el audio en formato MP3
-                audio_stream = video.streams.filter(only_audio=True).first()
-                print(Fore.GREEN + f"Descargando el audio de '{titulo_con_indice}' en formato MP3..." + Style.RESET_ALL)
-                filename = f"{titulo_con_indice}.mp3"  # Añadir el índice al nombre del archivo
-                audio_stream.download(output_path=ruta_descarga, filename=filename)
-                print(Fore.GREEN + "Descarga completada." + Style.RESET_ALL)
-            elif formato == "ambos":
-                # Descarga tanto el video en formato MP4 como el audio en formato MP3
-                stream = video.streams.get_highest_resolution()
-                print(Fore.GREEN + f"Descargando '{titulo_con_indice}' en formato MP4..." + Style.RESET_ALL)
-                video_filename = f"{titulo_con_indice}.mp4"  # Añadir el índice al nombre del archivo de video
-                stream.download(ruta_descarga, filename=video_filename)
-                print(Fore.GREEN + "Descarga de video completada." + Style.RESET_ALL)
-                
-                audio_stream = video.streams.filter(only_audio=True).first()
-                print(Fore.GREEN + f"Descargando el audio de '{titulo_con_indice}' en formato MP3..." + Style.RESET_ALL)
-                audio_filename = f"{titulo_con_indice}.mp3"  # Añadir el índice al nombre del archivo de audio
-                audio_stream.download(output_path=ruta_descarga, filename=audio_filename)
-                print(Fore.GREEN + "Descarga de audio completada." + Style.RESET_ALL)
+            try:
+                if formato == "mp4":
+                    # Descarga el video en formato MP4
+                    stream = video.streams.get_highest_resolution()
+                    print(Fore.GREEN + f"Descargando '{titulo_con_indice}' en formato MP4..." + Style.RESET_ALL)
+                    filename = f"{titulo_con_indice}.mp4"  # Añadir el índice al nombre del archivo
+                    stream.download(ruta_descarga, filename=filename)
+                    print(Fore.GREEN + "Descarga completada." + Style.RESET_ALL)
+                elif formato == "mp3":
+                    # Descarga solo el audio en formato MP3
+                    audio_stream = video.streams.filter(only_audio=True).first()
+                    print(Fore.GREEN + f"Descargando el audio de '{titulo_con_indice}' en formato MP3..." + Style.RESET_ALL)
+                    filename = f"{titulo_con_indice}.mp3"  # Añadir el índice al nombre del archivo
+                    audio_stream.download(output_path=ruta_descarga, filename=filename)
+                    print(Fore.GREEN + "Descarga completada." + Style.RESET_ALL)
+                elif formato == "ambos":
+                    # Descarga tanto el video en formato MP4 como el audio en formato MP3
+                    stream = video.streams.get_highest_resolution()
+                    print(Fore.GREEN + f"Descargando '{titulo_con_indice}' en formato MP4..." + Style.RESET_ALL)
+                    video_filename = f"{titulo_con_indice}.mp4"  # Añadir el índice al nombre del archivo de video
+                    stream.download(ruta_descarga, filename=video_filename)
+                    print(Fore.GREEN + "Descarga de video completada." + Style.RESET_ALL)
+                    
+                    audio_stream = video.streams.filter(only_audio=True).first()
+                    print(Fore.GREEN + f"Descargando el audio de '{titulo_con_indice}' en formato MP3..." + Style.RESET_ALL)
+                    audio_filename = f"{titulo_con_indice}.mp3"  # Añadir el índice al nombre del archivo de audio
+                    audio_stream.download(output_path=ruta_descarga, filename=audio_filename)
+                    print(Fore.GREEN + "Descarga de audio completada." + Style.RESET_ALL)
+            except Exception as e:
+                print(Fore.RED + f"Ocurrió un error al descargar '{titulo_con_indice}': {e}" + Style.RESET_ALL)
 
     except Exception as e:
-        print(Fore.RED + f"Ocurrió un error: {e}" + Style.RESET_ALL)
+        print(Fore.RED + f"Ocurrió un error al procesar la lista de reproducción: {e}" + Style.RESET_ALL)
 
 
 def menu():
