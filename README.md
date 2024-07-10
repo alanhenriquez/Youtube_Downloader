@@ -20,7 +20,7 @@ Este es un simple script en Python para descargar videos y listas de reproducci�
 
     3. Confirma el cambio escribiendo `Y` y presionando Enter.
 
-    Después de activar el entorno virtual, puedes restaurar la política de ejecución a su configuración original:
+    Después de activar el entorno virtual, puedes restaurar la política de ejecución a su configuración original (No recomendado si lo piensas utilizar seguido, o tendras que repetir el proceso para permitir la ejecución de scripts en PowerShell):
     ```sh
     Set-ExecutionPolicy Restricted
     ```
